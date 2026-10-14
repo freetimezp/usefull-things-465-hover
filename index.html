@@ -1,25 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#090909" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+
         <link rel="stylesheet" href="./assets/css/style.css" />
-        <title>Project</title>
+
+        <title>Hover Lab — Interactive Experience</title>
     </head>
 
     <body>
-        <div class="box">
-            <div class="about">
-                <h2>Hover me</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi eos neque ullam debitis, delectus
-                    unde fugit maiores in repellat necessitatibus doloremque asperiores, iusto, iste commodi?
-                </p>
-            </div>
+        <main class="hero">
+            <div class="noise"></div>
+            <div class="ambient ambient--one"></div>
+            <div class="ambient ambient--two"></div>
 
-            <div class="figure"></div>
-        </div>
+            <header class="header">
+                <a href="#" class="logo">
+                    <span class="logo-mark"></span>
+                    HOVER LAB
+                </a>
+
+                <nav class="navigation">
+                    <a href="#" class="nav-link active">Home</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#about" class="nav-link">About</a>
+                </nav>
+
+                <span class="header-index">INDEPENDENT CREATIVE STUDIO</span>
+            </header>
+
+            <section class="hero-content" id="experience">
+                <div class="intro">
+                    <div class="eyebrow">
+                        <span></span>
+                        INTERACTIVE EXPERIMENT / #465
+                    </div>
+
+                    <h1 class="hero-title">
+                        <span class="title-line">
+                            <span class="title-word">MOVE</span>
+                        </span>
+
+                        <span class="title-line title-line--accent">
+                            <span class="title-word">BEYOND</span>
+                        </span>
+
+                        <span class="title-line">
+                            <span class="title-word">THE</span>
+                            <span class="title-word">ORDINARY.</span>
+                        </span>
+                    </h1>
+
+                    <p class="description">
+                        An experiment in light, perception and interaction. Move
+                        your cursor. Discover another dimension.
+                    </p>
+
+                    <button class="explore" id="explore">
+                        <span class="explore-icon">↗</span>
+                        <span>ENTER THE EXPERIENCE</span>
+                    </button>
+                </div>
+
+                <div class="visual" id="visual">
+                    <div class="visual-grid"></div>
+
+                    <div class="visual-orbit orbit--one"></div>
+                    <div class="visual-orbit orbit--two"></div>
+
+                    <div class="image-shadow"></div>
+
+                    <!-- Grayscale portrait stays behind the glass -->
+                    <div class="portrait portrait--back">
+                        <img src="./assets/images/portrait.png" alt="" />
+                    </div>
+
+                    <!-- This wrapper creates the 3D perspective -->
+                    <div class="portrait-3d" id="portrait-3d">
+                        <div class="portrait portrait--front">
+                            <img src="./assets/images/portrait.png" alt="" />
+                        </div>
+
+                        <!-- Glowing glass edge moves with the portrait -->
+                        <div class="glass-panel">
+                            <div class="glass-top">
+                                <span>FIG. 001</span>
+                                <span>LIGHT / FORM</span>
+                            </div>
+
+                            <div class="glass-bottom">
+                                <span>CHANGE YOUR PERSPECTIVE</span>
+                                <span class="glass-cross">✳</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="light-beam"></div>
+
+                    <div class="glass-panel">
+                        <div class="glass-top">
+                            <span>FIG. 001</span>
+                            <span>LIGHT / FORM</span>
+                        </div>
+
+                        <div class="glass-bottom">
+                            <span>CHANGE YOUR PERSPECTIVE</span>
+                            <span class="glass-cross">✳</span>
+                        </div>
+                    </div>
+
+                    <div class="visual-caption">
+                        <span class="caption-dot"></span>
+                        <span>MOVE TO INTERACT</span>
+                    </div>
+
+                    <span class="visual-number">01 — 03</span>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-left">
+                    <span class="footer-line"></span>
+                    <span>DESIGNED TO BE DISCOVERED</span>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span>SCROLL TO EXPLORE</span>
+                    <span class="scroll-arrow">↓</span>
+                </div>
+
+                <span class="footer-right">EST. 2026</span>
+            </footer>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
 
         <script src="./assets/js/main.js"></script>
     </body>

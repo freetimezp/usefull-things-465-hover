@@ -1,79 +1,702 @@
+/* ================================
+   RESET
+================================ */
+
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    list-style: none;
-    list-style-type: none;
 }
 
-a {
-    text-decoration: none;
+:root {
+    --bg: #090909;
+    --text: #f2eee7;
+    --muted: #85817a;
+    --gold: #e8bd75;
+    --line: rgba(255, 255, 255, 0.13);
+    --mono: "DM Mono", monospace;
+    --serif: "Playfair Display", serif;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    background: #141414;
+    min-width: 320px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
 }
 
-.box {
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+.hero {
+    position: relative;
+    min-height: 100svh;
+    padding: 0 7%;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        radial-gradient(
+            ellipse at 72% 48%,
+            rgba(120, 83, 43, 0.13),
+            transparent 43%
+        ),
+        var(--bg);
+}
+
+/* Fine film grain overlay */
+
+.noise {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.13;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+}
+
+.ambient {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ambient--one {
+    top: 25%;
+    left: 35%;
+    background: #b17c37;
+}
+
+.ambient--two {
+    right: 5%;
+    bottom: 0;
+    background: #9c5728;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.header {
+    position: relative;
+    z-index: 12;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    border-bottom: 1px solid var(--line);
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    white-space: nowrap;
+}
+
+.logo-mark {
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 18px rgba(232, 189, 117, 0.22);
+}
+
+.logo-mark::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    top: -2px;
+    right: 0;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+.navigation {
+    display: flex;
+    gap: clamp(22px, 4vw, 60px);
+}
+
+.nav-link,
+.header-index {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: var(--muted);
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--gold);
+}
+
+.header-index {
+    color: var(--muted);
+    font-size: 8px;
+}
+
+/* ================================
+   MAIN LAYOUT
+================================ */
+
+.hero-content {
+    position: relative;
+    min-height: calc(100svh - 170px);
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: center;
+    gap: 2%;
+}
+
+.intro {
+    position: relative;
+    z-index: 5;
+    padding: 40px 0;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 0.19em;
+}
+
+.eyebrow span {
+    width: 25px;
+    height: 1px;
+    background: var(--gold);
+}
+
+/* SplitText will animate these lines */
+
+.hero-title {
+    font-family: var(--serif);
+    font-size: clamp(46px, 6.1vw, 94px);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+}
+
+.title-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.2em;
+    overflow: hidden;
+    padding: 0.04em 0 0.1em;
+}
+
+.title-line--accent {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.title-word {
+    display: inline-block;
+}
+
+.description {
+    max-width: 340px;
+    margin-top: 32px;
+    color: #99948d;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+/* ================================
+   INTERACTIVE BUTTON
+================================ */
+
+.explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 17px;
+    margin-top: 35px;
+    padding: 0;
+    border: 0;
+    color: var(--text);
+    background: transparent;
+    cursor: pointer;
+}
+
+.explore > span:last-child {
+    font-size: 9px;
+    letter-spacing: 0.17em;
+}
+
+.explore-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(232, 189, 117, 0.7);
+    border-radius: 50%;
+    color: var(--gold);
+    font-size: 20px;
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        transform 0.35s ease;
+}
+
+.explore:hover .explore-icon {
+    color: #090909;
+    background: var(--gold);
+    transform: rotate(45deg);
+}
+
+/* ================================
+   VISUAL STAGE
+================================ */
+
+.visual {
+    position: relative;
+    min-width: 0;
+    height: min(66vh, 650px);
+    min-height: 410px;
+    perspective: 1200px;
+    isolation: isolate;
+}
+
+.visual-grid {
+    position: absolute;
+    inset: 8% 0;
+    z-index: -2;
+    opacity: 0.22;
+    background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse, black, transparent 72%);
+}
+
+.visual-orbit {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 400px;
-    background: #000;
+    width: 80%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(232, 189, 117, 0.12);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg) scaleY(0.55);
+    pointer-events: none;
 }
 
-.about {
+.orbit--two {
+    width: 100%;
+    transform: translate(-50%, -50%) rotate(35deg) scaleY(0.55);
+}
+
+.image-shadow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-
-    padding: 40px;
-    color: #fff;
-    text-align: center;
+    left: 15%;
+    right: 5%;
+    bottom: 7%;
+    height: 18%;
+    background: #000;
+    filter: blur(38px);
+    opacity: 0.9;
 }
 
-.about h2 {
-    font-size: 30px;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
+.portrait {
+    position: absolute;
+    inset: 3% 6% 4% 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    transform-style: preserve-3d;
 }
 
-.figure {
+.portrait img {
+    position: relative;
+    display: block;
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    object-position: 58% bottom;
+    user-select: none;
+    pointer-events: none;
 }
 
-.figure::before {
-    content: "";
+/* The rear portrait stays monochrome */
+
+.portrait--back {
+    filter: grayscale(1) brightness(0.65);
+    opacity: 0.7;
+    transform: translateX(-4%) scale(0.96);
+}
+
+/* The front portrait is revealed through a moving mask */
+
+.portrait--front {
+    z-index: 2;
+    clip-path: inset(0 0 0 50%);
+    filter: sepia(0.22) saturate(1.2);
+    transition: clip-path 0.1s linear;
+}
+
+/* The wrapper provides the 3D space */
+.portrait-3d {
     position: absolute;
-    top: 0;
+    inset: 3% 6% 4% 5%;
+    z-index: 2;
+
+    perspective: 1100px;
+    transform-style: preserve-3d;
+
+    /* The wrapper itself will tilt with the pointer */
+    will-change: transform;
+}
+
+/* Keep the colored portrait inside the 3D wrapper */
+.portrait-3d .portrait--front {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    clip-path: inset(0 0 0 50%);
+    transform-origin: center center;
+    transform-style: preserve-3d;
+
+    backface-visibility: hidden;
+    will-change: transform, clip-path;
+}
+
+/* The glass plane is part of the same 3D scene */
+.portrait-3d .glass-panel {
+    position: absolute;
+    inset: 0 auto 0 50%;
+
+    width: 1px;
+    height: 100%;
+
+    transform-style: preserve-3d;
+    transform-origin: center center;
+
+    will-change: left, transform;
+}
+
+/* Keep the image fitted to its wrapper */
+.portrait-3d .portrait--front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+/* The colored layer needs to remain above the grayscale layer */
+.portrait--back {
+    z-index: 1;
+}
+
+/* Glass panel */
+
+.glass-panel {
+    position: absolute;
+    z-index: 3;
+    top: 4%;
+    bottom: 4%;
+    left: 50%;
+    width: 1px;
+    border-left: 1px solid rgba(255, 226, 172, 0.95);
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(255, 210, 135, 0.9) 12%,
+        rgba(255, 210, 135, 0.25) 80%,
+        transparent
+    );
+    box-shadow:
+        0 0 5px rgba(255, 197, 106, 0.9),
+        0 0 24px rgba(255, 169, 69, 0.38);
+    pointer-events: none;
+}
+
+.glass-top,
+.glass-bottom {
+    position: absolute;
+    left: 15px;
+    display: flex;
+    gap: 30px;
+    white-space: nowrap;
+    color: rgba(255, 232, 197, 0.8);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+}
+
+.glass-top {
+    top: 12px;
+}
+
+.glass-bottom {
+    bottom: 12px;
+    transform: translateY(100%);
+}
+
+.glass-cross {
+    font-size: 15px;
+}
+
+.light-beam {
+    position: absolute;
+    z-index: 3;
+    top: 4%;
+    bottom: 4%;
+    left: 50%;
+    width: 100px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 190, 91, 0.07),
+        transparent
+    );
+    filter: blur(15px);
+    pointer-events: none;
+}
+
+.visual-caption,
+.visual-number {
+    position: absolute;
+    z-index: 4;
+    bottom: 1%;
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 0.17em;
+}
+
+.visual-caption {
     left: 0;
-    width: 50%;
-    height: 100%;
-    background: url(../images/image.jpg);
-    transform-origin: bottom;
-    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.box:hover .figure::before {
-    transform: rotateX(90deg) translateY(50%);
+.caption-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
 }
 
-.figure::after {
-    content: "";
-    position: absolute;
-    top: 0;
+.visual-number {
     right: 0;
-    width: 50%;
-    height: 100%;
-    background: url(../images/image.jpg);
-    transform-origin: top;
-    background-position: 340px;
-    transition: 0.5s;
 }
 
-.box:hover .figure::after {
-    transform: rotateX(-90deg) translateY(-50%);
+/* ================================
+   FOOTER
+================================ */
+
+.footer {
+    position: relative;
+    z-index: 12;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 0.16em;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-line {
+    width: 25px;
+    height: 1px;
+    background: var(--gold);
+}
+
+.scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.scroll-arrow {
+    color: var(--gold);
+    font-size: 15px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1050px) {
+    .header-index {
+        display: none;
+    }
+
+    .hero {
+        padding: 0 5%;
+    }
+
+    .hero-title {
+        font-size: clamp(46px, 7vw, 76px);
+    }
+
+    .visual {
+        height: 58vh;
+    }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        padding: 0 22px;
+    }
+
+    .header {
+        min-height: 76px;
+    }
+
+    .navigation {
+        gap: 16px;
+    }
+
+    .nav-link {
+        font-size: 8px;
+        letter-spacing: 0.08em;
+    }
+
+    .logo {
+        font-size: 9px;
+        gap: 9px;
+        letter-spacing: 0.2em;
+    }
+
+    .logo-mark {
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-top: 45px;
+    }
+
+    .intro {
+        padding: 0;
+    }
+
+    .eyebrow {
+        margin-bottom: 23px;
+        font-size: 8px;
+    }
+
+    .hero-title {
+        font-size: clamp(48px, 12vw, 78px);
+    }
+
+    .description {
+        margin-top: 20px;
+        max-width: 320px;
+        font-size: 12px;
+    }
+
+    .explore {
+        margin-top: 23px;
+    }
+
+    .explore-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .visual {
+        height: min(54vh, 460px);
+        min-height: 300px;
+        margin-top: 15px;
+    }
+
+    .portrait {
+        inset: 0 3% 4%;
+    }
+
+    .portrait img {
+        object-position: 62% 6px;
+    }
+
+    .footer {
+        min-height: 60px;
+    }
+
+    .footer-right {
+        display: none;
+    }
+
+    .footer,
+    .footer-left,
+    .scroll-indicator {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 380px) {
+    .navigation {
+        gap: 10px;
+    }
+
+    .nav-link {
+        font-size: 7px;
+    }
+
+    .hero {
+        padding: 0 16px;
+    }
+
+    .visual {
+        min-height: 270px;
+    }
+
+    .footer-left {
+        max-width: 60%;
+    }
+}
+
+/* Respect users who prefer reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }
